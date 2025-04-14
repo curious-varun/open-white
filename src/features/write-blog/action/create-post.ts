@@ -6,9 +6,8 @@ import { db } from "@/db";
 import type { z } from "zod"
 import crypto from "crypto"
 
-const BUCKET_NAME = process.env.BUCKET_NAME || "blog-assets"
-const MINIO_PUBLIC_URL = process.env.MINIO_PUBLIC_URL || "http://localhost:9000"
 
+const BUCKET_NAME = "school-x";
 const s3 = new S3Client({
   region: process.env.MINIO_REGION || "us-east-1",
   endpoint: process.env.MINIO_ENDPOINT || "http://localhost:9000",
@@ -17,28 +16,33 @@ const s3 = new S3Client({
     secretAccessKey: process.env.MINIO_SECRET_KEY || "password",
   },
   forcePathStyle: true,
-})
+});
 
+
+const MINIO_PUBLIC_URL = process.env.MINIO_PUBLIC_URL || "http://localhost:9000";
 const uploadFile = async (file: File | null): Promise<string | null> => {
-  if (!file) return null
+  if (!file) return null;
+
   try {
-    const uniqueId = crypto.randomBytes(16).toString("hex")
-    const fileKey = `blog-images/${uniqueId}-${file.name}`
-    const buffer = Buffer.from(await file.arrayBuffer())
+    const uniqueId = crypto.randomBytes(16).toString("hex");
+    const fileKey = `uploads/${uniqueId}-${file.name}`;
+    const buffer = Buffer.from(await file.arrayBuffer());
+
     await s3.send(
       new PutObjectCommand({
         Bucket: BUCKET_NAME,
         Key: fileKey,
         Body: buffer,
         ContentType: file.type,
-      }),
-    )
-    return `${MINIO_PUBLIC_URL}/${BUCKET_NAME}/${fileKey}`
+      })
+    );
+
+    return `${MINIO_PUBLIC_URL}/${BUCKET_NAME}/${fileKey}`;
   } catch (error) {
-    console.error("File upload failed:", error)
-    return null
+    console.error("File upload failed:", error);
+    return null;
   }
-}
+};
 
 export async function createPostAction(values: z.infer<typeof postSchema>) {
   try {
