@@ -12,7 +12,7 @@ export const { auth, handlers } = NextAuth({
     }),
   ],
   pages: {
-    signIn: "/login",
+    signIn: "/login"
   },
   callbacks: {
     // Store user in DB if not exists
@@ -60,13 +60,10 @@ export const { auth, handlers } = NextAuth({
         nextUrl.pathname.startsWith("/favicon.ico") || // Favicon
         nextUrl.pathname.startsWith("/public/") || // Public folder assets
         nextUrl.pathname.startsWith("/api/auth/") // Allow NextAuth API routes
-      ) {
-        return true
-      }
+      ) return true
 
-      // Define public routes (accessible without login)
-      const publicRoutes = ['/', '/problemset']
 
+      const publicRoutes = ['/', '/blogs']
       // Allow access to public routes
       if (publicRoutes.includes(nextUrl.pathname)) {
         return true

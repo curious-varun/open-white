@@ -132,6 +132,17 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.logomask {
+  -webkit-mask-image: url('/logo.png');
+  mask-image: url('/logo.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
