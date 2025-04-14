@@ -2,18 +2,22 @@
 
 import { ArrowRight, Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import type { BlogPost } from "@/components/blog-card";
 
 
 export default function Home() {
 
   return (
-    <>
-      <div className=" mx-auto max-w-[1500px]">
+    <HomePageContent />
+  )
 
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden -mt-10 ">
+}
+
+function HomePageContent() {
+  return (
+    <>
+      <div className="-z-10 mx-auto max-w-[1500px] pt-10">
+        <section className=" relative min-h-[90vh] flex items-center overflow-hidden -mt-10 ">
           <div className="absolute inset-0 bg-gradient-to-br from-blog-50/30 to-transparent -z-10"></div>
           <div className="absolute top-1/2 right-0 -translate-y-1/2 w-full h-full max-w-3xl -z-10 opacity-10">
             <div className="w-full h-full bg-blog-200 rounded-l-full blur-3xl"></div>

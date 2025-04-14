@@ -40,7 +40,7 @@ export function TopBar() {
         </Link>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
+        <div className=" sticky top-0 z-50 hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
           <NavLink href="/explore">Explore</NavLink>
           <NavLink href="/for-you">For You</NavLink>
           <NavLink href="/write">Write a Blog</NavLink>
