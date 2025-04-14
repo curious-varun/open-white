@@ -99,7 +99,7 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
             )}
           />
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 w-full">
             {/* Category Select */}
             <FormField
               control={form.control}
@@ -131,7 +131,7 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem className="w-36">
+                <FormItem className="w-36 m-4">
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input type="text" {...field} className="min-w-72" />
@@ -141,20 +141,21 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="userEmail"
-              render={({ field }) => (
-                <FormItem className="w-36">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type="text" disabled {...field} value={userEmail} className="min-w-72" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
+
+          <FormField
+            control={form.control}
+            name="userEmail"
+            render={({ field }) => (
+              <FormItem className="w-36">
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="text" disabled {...field} value={userEmail} className="min-w-72" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Tag Selector */}
           <TagSelector tags={tags} />
