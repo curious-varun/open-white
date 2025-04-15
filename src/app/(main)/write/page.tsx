@@ -8,7 +8,7 @@ export default async function PostEditor() {
   const tags: getAllTagsType[] = await getAllTags();
 
   return (
-    <div className="mx-auto max-w-[1200px] mt-2">
+    <div className="mx-auto max-w-[1200px] mt-40">
       <WriteBlog categories={categories} tags={tags} />
     </div>
   );
