@@ -3,7 +3,7 @@ import { siteConfig } from '@/config/site-config';
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from '@/providers';
-import { TopBar } from '@/components/navbar';
+import { NavBar } from '@/components/navbar';
 
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'] })
@@ -18,7 +18,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         className={jakarta.className}>
         <div className='max-w-[2200px] mx-auto'>
           <Providers>
-            <TopBar />
+            <NavBar />
             {children}
           </Providers>
         </div>
