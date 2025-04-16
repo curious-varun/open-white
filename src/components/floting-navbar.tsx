@@ -57,11 +57,11 @@ export const FloatingNav = ({
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48 z-100">
-                <Link href={"/"} passHref>
+                <Link href={"/user"}>
                   <DropdownMenuItem asChild>
                     <div className="flex items-center space-x-2 cursor-pointer">
                       <User className="w-4 h-4" />
-                      <span>{session.user.email || " "}</span>
+                      <span>{session.user.name || " "}</span>
                     </div>
                   </DropdownMenuItem>
                 </Link>
@@ -84,9 +84,10 @@ export const FloatingNav = ({
             <span>Login</span>
             <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
           </button>
-        )}
+        )
+        }
 
-      </motion.div>
-    </AnimatePresence>
+      </motion.div >
+    </AnimatePresence >
   );
 };

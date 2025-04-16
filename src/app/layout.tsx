@@ -11,6 +11,7 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'] })
 export const metadata: Metadata = siteConfig;
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
+
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body
