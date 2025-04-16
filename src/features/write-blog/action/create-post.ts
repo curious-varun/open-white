@@ -46,12 +46,10 @@ const uploadFile = async (file: File | null): Promise<string | null> => {
 
 export async function createPostAction(values: z.infer<typeof postSchema>) {
   try {
-
-
     const parsedValues = postSchema.parse(values)
 
     const existingUser = await db.user.findUnique({
-      where: { email: "vaurn.ai@gmail.com" },
+      where: { email: parsedValues.userEmail },
     })
 
     if (!existingUser) {
@@ -63,14 +61,13 @@ export async function createPostAction(values: z.infer<typeof postSchema>) {
     // ✅ Upload the image and ensure type is string | null
     const imageUrl: string | null = await uploadFile(parsedValues.image || null)
 
-
     const post = await db.post.create({
       data: {
         title: parsedValues.title,
         content: parsedValues.content,
         image: imageUrl ? imageUrl : "", // ✅ explicit string
         author: {
-          connect: { email: "vaurn.ai@gmail.com" },
+          connect: { email: parsedValues.userEmail },
         },
         category: {
           connect: { id: parsedValues.category },

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const postSchema = z.object({
   userEmail: z.string(),
@@ -7,9 +7,9 @@ export const postSchema = z.object({
   title: z.string(),
   content: z.string(),
   category: z.string(),
-});
+})
 
-export type PostType = z.infer<typeof postSchema>;
+export type PostType = z.infer<typeof postSchema>
 
 export const defaultValues: PostType = {
   userEmail: "",
@@ -17,5 +17,5 @@ export const defaultValues: PostType = {
   tags: [],
   content: "",
   title: "",
-  category: ""
+  category: "",
 }

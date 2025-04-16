@@ -1,26 +1,26 @@
-"use client";
+"use client"
 
-import React, { useTransition } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { Save, Loader2 } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import { useSession } from "next-auth/react";
+import { useTransition } from "react"
+import { useForm, FormProvider } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { toast } from "sonner"
+import { Save, Loader2 } from "lucide-react"
+import ReactMarkdown from "react-markdown"
+import { useSession } from "next-auth/react"
 
-import { getAllCategoryType } from "@/db/category";
-import { getAllTagsType } from "@/db/tags";
+import type { getAllCategoryType } from "@/db/category"
+import type { getAllTagsType } from "@/db/tags"
 
-import { postSchema, defaultValues, PostType } from "../schema";
+import { postSchema, defaultValues, type PostType } from "../schema"
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Input } from '@/components/ui/input';
-import { FileUpload } from "@/components/file-upload";
-import { TagSelector } from "./tag-selector";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { createPostAction } from "../action/create-post";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { FileUpload } from "@/components/file-upload"
+import { TagSelector } from "./tag-selector"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Textarea } from "@/components/ui/textarea"
+import { createPostAction } from "../action/create-post"
 
 // Markdown preview styles - add these to your global CSS or component
 const markdownStyles = {
@@ -37,13 +37,12 @@ const markdownStyles = {
   codeBlock: "bg-gray-100 p-3 rounded my-4 overflow-x-auto",
   link: "text-blue-600 hover:underline",
   image: "max-w-full h-auto my-4",
-};
+}
 
 export function WriteBlog({ categories, tags }: { categories: getAllCategoryType[]; tags: getAllTagsType[] }) {
-  const [isPending, startTransition] = useTransition();
-  const { data: session } = useSession();
-  const userEmail = session?.user?.email || "";
-
+  const [isPending, startTransition] = useTransition()
+  const { data: session } = useSession()
+  const userEmail = session?.user?.email || ""
 
   const form = useForm<PostType>({
     resolver: zodResolver(postSchema),
@@ -53,41 +52,37 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
       tags: [],
     },
     mode: "onChange",
-  });
+  })
 
-  const markdownContent = form.watch("content") || "";
+  const markdownContent = form.watch("content") || ""
 
   const onSubmit = async (values: PostType) => {
     startTransition(async () => {
       try {
-        console.log("Form values:", values);
-        alert(JSON.stringify(values));
+        console.log("Form values:", values)
+        alert(JSON.stringify(values))
 
         // Call the server-side function to create the post
-        const response = await createPostAction(values);
+        const response = await createPostAction(values)
 
         if (response.success) {
-          toast.success("Post submitted successfully!");
+          toast.success("Post submitted successfully!")
         } else {
-          toast.error(response.message || "An error occurred while submitting the form");
+          toast.error(response.message || "An error occurred while submitting the form")
         }
       } catch (error) {
-        console.error("Error during form submission:", error);
-        toast.error("An error occurred while submitting the form");
-      }
-      finally {
+        console.error("Error during form submission:", error)
+        toast.error("An error occurred while submitting the form")
+      } finally {
         form.reset()
       }
-    });
-  };
-
-
+    })
+  }
 
   return (
     <div className="mt-2">
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-
           {/* Image Upload */}
           <FormField
             control={form.control}
@@ -129,7 +124,6 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
               )}
             />
 
-
             <FormField
               control={form.control}
               name="title"
@@ -143,7 +137,6 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
                 </FormItem>
               )}
             />
-
           </div>
 
           <FormField
@@ -194,7 +187,9 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
                             ul: ({ node, ...props }) => <ul className={markdownStyles.list} {...props} />,
                             ol: ({ node, ...props }) => <ol className={markdownStyles.orderedList} {...props} />,
                             li: ({ node, ...props }) => <li className={markdownStyles.listItem} {...props} />,
-                            blockquote: ({ node, ...props }) => <blockquote className={markdownStyles.blockquote} {...props} />,
+                            blockquote: ({ node, ...props }) => (
+                              <blockquote className={markdownStyles.blockquote} {...props} />
+                            ),
                             a: ({ node, ...props }) => <a className={markdownStyles.link} {...props} />,
                             img: ({ node, ...props }) => <img className={markdownStyles.image} {...props} />,
                           }}
@@ -226,8 +221,6 @@ export function WriteBlog({ categories, tags }: { categories: getAllCategoryType
           </Button>
         </form>
       </FormProvider>
-    </div >
-  );
+    </div>
+  )
 }
-
-
